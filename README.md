@@ -55,10 +55,12 @@ Layers end up interacting like this:
 
 ```hack
 use Ducts\Runner;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- * @var Psr\Http\Message\RequestInterface $request The PSR-7 HTTP request
- * @var Psr\Http\Message\ResponseInterface $response The PSR-7 HTTP response
+ * @var \Psr\Http\Message\ServerRequestInterface $request The PSR-7 HTTP request
+ * @var \Psr\Http\Message\ResponseInterface $response The PSR-7 HTTP response
  */
 
 // any Traversable will do. Use an array, Vector, etc.
