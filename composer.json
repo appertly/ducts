@@ -1,0 +1,22 @@
+{
+    "name": "appertly/ducts",
+    "type": "library",
+    "description": "A PSR-7 compliant middleware dispatcher for Hack/HHVM",
+    "keywords": ["hack", "hhvm", "middleware", "psr-7"],
+    "homepage": "https://github.com/appertly/ducts",
+    "license": "MIT",
+    "require": {
+        "hhvm": ">=3.12.0",
+        "psr/http-message": "^1.0"
+    },
+    "require-dev": {
+        "hack-psr/psr7-http-message-hhi": "^0.2",
+        "hackpack/hackunit": "~0.6",
+        "zendframework/zend-diactoros": "~1.0"
+    },
+    "autoload": {
+        "psr-4": {
+          "Ducts\\": "src/"
+        }
+    }
+}
