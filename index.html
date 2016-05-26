@@ -1,0 +1,117 @@
+<!-- Boilerplate by @doublecompile // Version 0.1.0 // MIT License -->
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Ducts: A PSR-7 compliant middleware dispatcher for Hack/HHVM</title>
+        <meta name="description" content="Ducts: A PSR-7 compliant middleware dispatcher for Hack/HHVM">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="///cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+        <script src="vendor/js/modernizr.min.custom.js"></script>
+        <link rel="icon" sizes="16x16 32x32 48x48 64x64" href="favicon.ico">
+        <!--[if IE]><link rel="shortcut icon" href="favicon.ico"><![endif]-->
+        <!-- Touch icon for iOS 2.0+ and Android 2.1+: -->
+        <link rel="apple-touch-icon-precomposed" href="favicon-152.png">
+        <!-- IE 10 Metro tile icon (Metro equivalent of apple-touch-icon): -->
+        <meta name="msapplication-TileColor" content="#FFFFFF">
+        <meta name="msapplication-TileImage" content="favicon-144.png">
+        <!-- IE 11 live tiles: -->
+        <meta name="msapplication-square70x70logo" content="favicon-70.png" />
+        <meta name="msapplication-square150x150logo" content="favicon-150.png" />
+        <meta name="msapplication-square310x310logo" content="favicon-310.png" />
+        <!-- For iPad with high-resolution Retina display running iOS ≥ 7: -->
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="favicon-152.png">
+        <!-- For iPad with high-resolution Retina display running iOS ≤ 6: -->
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="favicon-144.png">
+        <!-- For iPhone with high-resolution Retina display running iOS ≥ 7: -->
+        <link rel="apple-touch-icon-precomposed" sizes="120x120" href="favicon-120.png">
+        <!-- For iPhone with high-resolution Retina display running iOS ≤ 6: -->
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="favicon-114.png">
+        <!-- For first- and second-generation iPad: -->
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="favicon-72.png">
+        <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+        <link rel="apple-touch-icon-precomposed" href="favicon-57.png">
+    </head>
+    <body>
+        <div id="universe">
+            <div class="columns columns-golden big-right clearfix">
+                <div class="column">
+                    <header id="page-header" role="banner">
+                        <div class="logo" role="presentation"></div>
+                        <h1>Ducts</h1>
+                        <h2>A PSR-7 compliant middleware dispatcher for Hack/HHVM</h2>
+                        <div class="region clearfix">
+                        </div>
+                    </header>
+                    <div class="install">
+                        <h4>Install via Composer</h4>
+                        <pre class="language-bash"><code>composer install appertly/ducts</code></pre>
+                    </div>
+                    <div class="contribute">
+                        <h4>Contribute</h4>
+                        <p>Find <a href="https://github.com/appertly/ducts">the project on GitHub</a>
+                            where you can submit <a href="https://github.com/appertly/ducts/issues">issues</a>
+                            or <a href="https://github.com/appertly/ducts/pulls">pull requests</a>.
+                        </p>
+                    </div>
+                    <div class="docs">
+                        <h4>Documentation</h4>
+                        <p>A reference guide is in the works. In the meantime, check out the
+                            <a href="https://github.com/appertly/ducts/blob/master/README.md">README</a>
+                            or take a look at <a href="api/">the API documentation</a>.</p>
+                    </div>
+                </div>
+                <div class="column">
+                    <main role="main">
+                        <div class="region clearfix">
+                            <h2>The Gist</h2>
+                            <p>It's the same idea as <a href="https://github.com/senchalabs/connect">Connect</a>, <a href="https://github.com/relayphp/Relay.Relay">Relay</a>, <a href="https://github.com/zendframework/zend-stratigility">Stratigility</a>, <a href="https://github.com/mindplay-dk/middleman">Middleman</a>, etc., but in strict mode Hack.</p>
+                            <h2>Layers and Dispatching</h2>
+                            <p>The idea here is that you create a <code>Ducts\Runner</code> and supply it a list of functions which:</p>
+                            <ol>
+                                <li>Accept a request, a response, and a next function</li>
+                                <li>Possibly modify the request and response</li>
+                                <li>Possibly invoke the next function, which returns a response</li>
+                                <li>Possibly modify the returned response</li>
+                                <li>Return the response</li>
+                            </ol>
+                            <pre><code class="language-hack">use Ducts\Runner;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Http\Message\ResponseInterface as Response;
+
+$runner = new Runner([
+    // some other functions here…
+    function foobar(Request $req, Response $res, (function (Request,Response): Response) $next): Response
+    {
+        // 2. possibly modify the request and response
+        // 3. invoke next
+        $res = $next($req, $res);
+        // 4. possibly modify response
+        // 5.
+        return $res;
+    }
+    // some other functions here…
+]);
+$runner->run($request, $response);</code></pre>
+                            <p><code>Runner</code>s can take any <code>callable</code> that fits this interface: closures, lambdas, classes with an <code>__invoke</code> method, or the return value of <code>HH\fun</code>, <code>HH\class_meth</code>, or <code>HH\inst_meth</code>.
+                        </div>
+                    </main>
+                </div>
+            </div>
+            <footer id="page-footer" role="contentinfo">
+                <div class="region clearfix">
+                    <div class="block">
+                        <p class="copyright">
+                            © 2016 <a href="https://github.com/appertly">Appertly</a>.
+                            This website is licensed under <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a>.
+                            The project itself is licensed under <a href="http://spdx.org/licenses/MIT.html">MIT</a>.
+                        </p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </body>
+</html>
