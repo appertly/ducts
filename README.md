@@ -3,6 +3,9 @@ A PSR-7 compliant middleware dispatcher for Hack/HHVM.
 
 It's the same idea as [Connect](https://github.com/senchalabs/connect), [Relay](https://github.com/relayphp/Relay.Relay), [Stratigility](https://github.com/zendframework/zend-stratigility), [Middleman](https://github.com/mindplay-dk/middleman), etc., but in strict mode Hack.
 
+[![Packagist](https://img.shields.io/packagist/v/appertly/ducts.svg)](https://packagist.org/packages/appertly/ducts)
+[![Build Status](https://travis-ci.org/appertly/ducts.svg)](https://travis-ci.org/appertly/ducts)
+
 ## Installation
 
 You can install this library using Composer:
